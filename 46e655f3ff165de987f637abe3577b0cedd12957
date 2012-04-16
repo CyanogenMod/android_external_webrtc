@@ -1,0 +1,10 @@
+Change-Id: I46e655f3ff165de987f637abe3577b0cedd12957
+Code-Review+2: Steve Kondik <shade@chemlab.org>
+Verified+1: Steve Kondik <shade@chemlab.org>
+Code-Review+1: Gergely Nagy <ngg@ngg.hu>
+Code-Review+1: Android Meda <hephappy@gmail.com>
+Submitted-by: Steve Kondik <shade@chemlab.org>
+Submitted-at: Mon, 16 Apr 2012 09:59:59 +0400
+Reviewed-on: http://review.cyanogenmod.com/14748
+Project: CyanogenMod/android_external_webrtc
+Branch: refs/heads/ics
