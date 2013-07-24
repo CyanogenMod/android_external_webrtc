@@ -1,4 +1,4 @@
-# Copyright (c) 2011 The WebRTC project authors. All Rights Reserved.
+# Copyright (c) 2012 The WebRTC project authors. All Rights Reserved.
 #
 # Use of this source code is governed by a BSD-style license
 # that can be found in the LICENSE file in the root of the source
@@ -17,15 +17,15 @@ LOCAL_MODULE := libwebrtc_system_wrappers
 LOCAL_MODULE_TAGS := optional
 LOCAL_CPP_EXTENSION := .cc
 LOCAL_SRC_FILES := \
+    android/cpu-features.c \
+    cpu_features_android.c \
     map.cc \
-    rw_lock_generic.cc \
     sort.cc \
     aligned_malloc.cc \
-    atomic32.cc \
+    atomic32_posix.cc \
     condition_variable.cc \
     cpu_no_op.cc \
     cpu_features.cc \
-    cpu_features_arm.c \
     cpu_info.cc \
     critical_section.cc \
     event.cc \
@@ -38,9 +38,10 @@ LOCAL_SRC_FILES := \
     cpu_linux.cc \
     critical_section_posix.cc \
     event_posix.cc \
+    sleep.cc \
     thread_posix.cc \
     trace_posix.cc \
-    rw_lock_posix.cc 
+    rw_lock_posix.cc
 
 LOCAL_CFLAGS := \
     $(MY_WEBRTC_COMMON_DEFS)
@@ -52,10 +53,19 @@ LOCAL_C_INCLUDES := \
 
 LOCAL_SHARED_LIBRARIES := \
     libcutils \
-    libdl \
-    libstlport
+    libdl
 
 ifndef NDK_ROOT
+ifndef WEBRTC_STL
+LOCAL_SHARED_LIBRARIES += libstlport
 include external/stlport/libstlport.mk
+else
+LOCAL_NDK_STL_VARIANT := $(WEBRTC_STL)
+LOCAL_SDK_VERSION := 14
+LOCAL_MODULE := $(LOCAL_MODULE)_$(WEBRTC_STL)
 endif
+else
+LOCAL_SHARED_LIBRARIES += libstlport
+endif
+
 include $(BUILD_STATIC_LIBRARY)
